@@ -1,14 +1,98 @@
 ####
+# @Étienne Ameye
 # @Philippe Gabriel
-# @Version 0.0.0 2020-04-30
+# @Version 1.11.3 2020-04-09
 #
-# Ce programme
+# Ce programme calcule la division entière de deux entrées en prenant compte du
+# signe des opérandes et en traitant séparément la division par 0
 ####
 
 ################################################################################
 
+# L'opérande est convertit en sa valeur opposée si l'entrée est négative
+	IN
+	STO	divd
+	BRP	pos
+	SUB	divd
+	SUB	divd
+	STO	divd
+
+###
+# Un dividende négatif entraîne une modification des ordres de branchements qui
+# suivent l'obtention du second opérande pour accomoder au signe du prochain
+# opérande
+# Le facteur déterminant la modification des ordres de branchements est obtenu à
+# partir de l'adresse du début de la division et celle de la modification de la
+# division
+###
+
+	LDA	sDiv
+	SUB	cDiv
+	STO	switch	# Soustraction des adresses permet d'obtenir le facteur
+
+	LDA	jump1
+	SUB	switch
+	STO	jump1	# Branchement modifié à être à l'étiquette mod
+
+	LDA	jump2
+	ADD	switch
+	STO	jump2	# Branchement modifié à être à l'étiquette loop
+
+###
+# Un dividende entré positif entraîne soit une division directe si le diviseur
+# est du même signe soit une modification de la division sinon
+# Un dividende entré négatif entraîne les mêmes effets sauf que les branchements
+# sont modifiés pour accomoder
+# Si le diviseur entré est 0, la division n'est pas calculée mais le reste est
+# tout de même affiché
+###
+
+# L'opérande est convertit en sa valeur opposée si l'entrée est négative
+pos	IN
+	BRZ	fini	# Une division par zéro n'est pas calculée
+	STO	divs
+jump1	BRP	loop	# Saut dépend du signe du dividende
+	SUB	divs
+	SUB	divs
+	STO	divs
+jump2	BR	mod	# Saut dépend du signe du dividende
+
+###
+# Lorsque la division implique des signes différents, quelques instructions du
+# sous-programme de division sont modifiées
+###
+
+mod	LDA	difS
+	ADD	cent
+	STO	difS	# L'instruction est modifié à un SUB
+
+###
+# Ce sous-programme vise à calculer la division entière de deux opérandes
+# données en affichant le reste de la division en sa forme absolue et en prenant
+# compte du signe des deux opérandes
+###
+
+loop	LDA	divd
+	SUB	divs
+	BRP	div	# Test vérifiant la fin de la division
+	BR	fini
+div	STO	divd
+	LDA	qt
+difS	ADD	un
+	STO	qt
+	BR	loop
+
+fini	LDA	qt
+	OUT
+	LDA	divd
+	OUT
 	HLT
 
-	DAT	000
-	DAT	000
-	DAT	000
+un	DAT	001	# Constante 1 pour calcul du quotient
+cent	DAT	100	# Constante 100 accomoder calcul de signes différents
+divd	DAT	000	# Dividende contient reste après division
+divs	DAT	000	# Diviseur
+qt	DAT	000	# Quotient
+switch	DAT	000	# Facteur modifiant code quand dividende entré négatif
+sDiv	DAT	loop	# Adresse du début du sous-programme de division
+cDiv	DAT	mod	# Adresse du début du bloc modifiant la division
