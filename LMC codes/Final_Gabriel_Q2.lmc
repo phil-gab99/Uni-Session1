@@ -1,0 +1,82 @@
+####
+# @Philippe Gabriel
+# @Version 1.0.2 2020-04-30
+#
+# Ce programme alloue et initialise un tableau définit par l'usager entre des
+# bornes prédéfinies et affiche des valeurs d'intérêts
+####
+
+################################################################################
+
+	IN
+	STO	n
+	STO	count
+
+#On vérifie si les bornes (entre 0 et 10) sont respectés
+	BRZ	done	#Si strictement plus grand que 0
+	BRP	pos	#Si négatif borne non-respectée
+	BR	done
+
+pos	SUB	ten
+	BRP	done	#Si strictement plus petit que 10
+
+###
+# Ce sous-programme remplit l'espace réservé du tableau par des valeurs entrées
+# par l'usager
+###
+
+loop	IN
+adr	STO	TAB
+
+#Prochaine adresse
+	LDA	adr
+	ADD	one
+	STO	adr
+
+#Redéfinition la longueur restante
+	LDA	count
+	SUB	one
+	STO	count
+
+	BRZ	print
+	BR	loop
+
+###
+# Ce sous-programme affiche les valeurs d'intérêts à la deuxième et avant-
+# dernière position du tableau
+###
+
+#Vérification si longueur est inférieure à 2 pour imprimer -1 si besoin est
+print	LDA	n
+	SUB	one
+	BRZ	small
+
+#Affichage de la valeur à la deuxième position
+	LDA	lxtrm
+	ADD	one
+	STO	lxtrm
+lxtrm	LDA	TAB
+	OUT
+
+#Affichage de la valeur à l'avant-dernière position
+	LDA	hxtrm
+	ADD	n
+	SUB	one
+	SUB	one
+	STO	hxtrm
+hxtrm	LDA	TAB
+	OUT
+	BR	done
+
+#Imprime -1 si la longueur est trop petite
+small	LDA	minone
+	OUT
+
+done	HLT
+
+n	DAT	000	#Integer déterminant la longueur du tableau rentré
+count	DAT	000	#Integer servant de compteur pour remplir le tableau
+one	DAT	001	#Constante 1 pour les inc/décrémentations
+minone	DAT	-001	#Constante -1 à afficher dans les cas spéciaux
+ten	DAT	010	#Constante 10 pour vérification de longueur
+TAB	DAT	000	#Début du tableau à remplir

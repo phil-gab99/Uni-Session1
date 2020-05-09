@@ -1,0 +1,56 @@
+##
+# @Philippe Gabriel
+# @Version 1.6 2020-03-12
+#
+# This program reads three inputted integers by the user
+# and outputs the largest of the inputs
+##
+
+	IN #input1
+	STO larg
+	SUB zero
+	BRP p
+
+	IN #input2
+	STO temp
+	SUB zero
+np	BRP lsti
+
+nn	LDA larg
+	SUB temp
+	BRP lsti
+	LDA temp
+	STO larg
+
+p	IN #input2
+	STO temp
+	SUB zero
+	BRP pp
+
+pn	BR lsti
+
+pp	LDA larg
+	SUB temp
+	BRP lsti
+	LDA temp
+	STO larg
+
+lsti	IN #input3
+	STO temp
+	SUB zero
+	BRP comp
+	BR done
+
+comp	LDA larg
+	SUB temp
+	BRP done
+	LDA temp
+	STO larg
+
+done	LDA larg
+	OUT
+	HLT
+
+zero	DAT 000
+temp	DAT 000
+larg	DAT 000

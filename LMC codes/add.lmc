@@ -1,0 +1,15 @@
+##
+# @Philippe Gabriel
+# @Version 1.0
+#
+# This programs adds two inputs and outputs the result
+##
+
+	IN
+	STO val
+	IN
+	ADD val
+	OUT
+	HLT
+
+val	DAT 000 #Storing first inputted value

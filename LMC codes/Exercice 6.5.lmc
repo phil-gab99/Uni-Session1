@@ -1,0 +1,20 @@
+##
+# @Philippe Gabriel
+# @Version 1.2 2020-03-12
+#
+# Ce programme vise à lire deux nombres entrés par
+# l'utilisateur et à en afficher la somme
+###
+
+	IN
+	STO 00
+	IN
+	ADD 00
+	OUT
+	HLT
+
+# Le résultat de l'exécution demeure inchangé
+# La seconde exécution demeure inchangé elle aussi
+	# Puisque l'action à l'adresse 00 a été effectuée,
+	# le stockage dans la case 00 ne change pas
+	# l'exécution du programme

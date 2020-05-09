@@ -1,0 +1,37 @@
+##
+# @Philippe Gabriel
+# @Version 1.3 2020-03-12
+#
+# This program prints the square of consecutive values
+# between 1 and 20
+##
+
+nextval	LDA value #Next value for evaluating square
+	STO count
+
+loop	LDA midres
+	ADD value  #Series of adding until square
+	STO midres
+	LDA count
+	SUB one
+	STO count
+	BRZ square
+	BR loop
+
+square	LDA midres #Square of value
+	OUT
+	LDA reset  #Resetting midres for next value
+	STO midres
+	LDA value
+	SUB one
+	STO value  #Evaluate square of next value
+	BRZ done
+	BR nextval
+
+done	HLT
+
+value	DAT 020 #Value to evaluate square
+midres	DAT 000 #Intermediate result of square evaluation
+count	DAT 000 #Total amount of sums of square evaluation
+one	DAT 001 #Constant 1
+reset	DAT 000 #Constant 0 for resetting midres

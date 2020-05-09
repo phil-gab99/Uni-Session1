@@ -1,0 +1,24 @@
+##
+# @Philippe Gabriel
+# @Version 1.0
+#
+# This program outputs a positive difference of two inputs
+##
+
+	IN
+	STO val1
+	IN
+	STO val2
+	
+	LDA val1
+	SUB val2
+	BRP done
+
+neg	LDA val2
+	SUB val1
+
+done	OUT
+	HLT
+
+val1	DAT 000
+val2	DAT 000

@@ -1,0 +1,72 @@
+##
+# @Philippe Gabriel
+# @Version 1.7 2020-03-12
+#
+# This program takes an undetermined amount of inputs from
+# the user and outputs the two largest inputs once the 0
+# flag is inputted
+##
+
+	IN
+	STO temp
+	BRZ done
+
+	SUB zero    # Check if input was negative
+	BRP lrgerA
+	STO large2  # Negative input occupies 2nd largest
+
+loop    IN
+	BRZ done    # Flag for end of sequence
+	STO temp
+	SUB zero
+	BRP larger1 # Input was positive integer
+	BR larger2  # Possibly larger than 2nd largest
+
+larger1 LDA temp
+	SUB large1  # Compare input
+	BRP lrgerA
+
+larger2 LDA temp    # Compare input and negative handling
+	SUB zero
+	BRP pos
+	LDA large2
+	SUB zero
+	BRP loop    # Negative input rejected
+
+	LDA large2  # Both values are negative
+	SUB temp
+	BRP loop
+	LDA temp
+	STO large2
+	BR loop
+
+pos     LDA large2  # Input value positive
+	SUB zero
+	BRP posA
+	LDA temp
+	STO large2
+	BR loop
+
+posA    LDA large2  # Both values are positive
+	SUB temp
+	BRP loop
+	LDA temp
+	STO large2
+	BR loop
+
+lrgerA  LDA large1  # Value inputted larger than all
+	STO large2
+	LDA temp
+	STO large1
+	BR loop
+
+done    LDA large1
+	OUT
+	LDA large2
+	OUT
+	HLT
+
+temp    DAT 000     # Temporary for comparison
+large1  DAT 000     # Current largest value
+large2  DAT 000     # Current 2nd largest value
+zero    DAT 000     # Check for negative value

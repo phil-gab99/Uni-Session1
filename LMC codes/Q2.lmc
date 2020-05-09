@@ -1,0 +1,45 @@
+####
+# @Étienne Ameye
+# @Philippe Gabriel
+# @Version 1.8.3 2020-04-09
+#
+# Ce programme détermine en premier lieu le nombre n de cellules libres dans la
+# mémoire pour ensuite initialiser cet espace libre des valeurs de 1 jusqu'à n
+# en affichant le contenu de ces cellules également
+####
+
+################################################################################
+
+# Calcul déterminant la taille de la mémoire avec des cellules vides
+	LDA	dAdr
+	SUB	TAB
+	STO	n
+	BR	cond	# Vérification de condition d'arrêt avant le stockage
+
+###
+# Ce sous-programme remplit les cellules vides de la mémoire par le facteur
+# d'incrémentation i à partir du début TAB jusqu'à la dernière cellule de la
+# mémoire en affichant en parallèle les valeurs dans cet espace mémoire
+###
+
+loop	LDA	pAdr	# Incrémentation de la prochaine adresse de stockage
+	ADD	un
+	STO	pAdr
+	LDA	i
+pAdr	STO	TAB
+	OUT		# Affichage de la valeur en mémoire
+	ADD	un
+	STO	i
+
+# Condition d'arrêt de stockage à la prochaine adresse
+cond	LDA	n
+	SUB	i
+	BRP	loop
+
+fini	HLT
+
+un	DAT	001	# Constante 1 pour les incrémentations
+dAdr	DAT	099	# Constante 99 représentant la dernière adresse mémoire
+i	DAT	001	# Index du tableau pour stocker les valeurs
+n	DAT	000	# Nombre de cellules disponibles après le programme
+TAB	DAT	TAB	# Début de TAB après lequel les valeurs sont stockées

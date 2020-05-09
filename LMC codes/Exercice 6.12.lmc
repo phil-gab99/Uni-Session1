@@ -1,0 +1,24 @@
+##
+# @Philippe Gabriel
+# @Version 1.0 2020-03-12
+#
+# This program sums the first two inputs and subtracts a
+# third input to then output the result
+##
+
+	IN
+	STO 99
+	IN
+	ADD 99
+	STO 99
+
+	IN
+	STO 98 # Keep in memory third input
+	LDA 99 # Call back the previous sum
+	SUB 98 # Subtract from it third input
+	OUT    # Result is correct
+	HLT
+
+# Error with this program at subtraction step
+# Corrected by storing third input at address 98
+# to then load the sum and subtract from it the third input

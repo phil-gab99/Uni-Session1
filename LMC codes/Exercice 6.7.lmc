@@ -1,0 +1,38 @@
+##
+# @Philippe Gabriel
+# @Version 1.5 2020-03-12
+#
+# This program takes an undetermined amount of inputs from
+# the user and outputs the largest input once the 0 flag is
+# inputted
+##
+
+	IN
+	STO temp
+	BRZ done
+
+	SUB zero    # Check if input was negative
+	BRP larger
+
+loop    IN
+	BRZ done    # Flag for end of sequence
+	STO temp
+	SUB zero
+	BRP pos     # Input was positive integer
+	BR loop
+
+pos     SUB largest # Compare inputs
+	BRP larger
+	BR loop
+
+larger  LDA temp    # Store larger number
+	STO largest
+	BR loop
+
+done    LDA largest
+	OUT
+	HLT
+
+temp    DAT 000     # Temporary for comparison
+largest DAT 000     # Current largest value
+zero    DAT 000     # Check for negative value
