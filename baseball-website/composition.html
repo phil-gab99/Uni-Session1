@@ -1,0 +1,394 @@
+<!-- Vincent Falardeau, Philippe Gabriel -->
+
+<!DOCTYPE html>
+
+<html lang="fr-ca">
+    <head>
+        <link rel="icon" href="images/icon.ico" type="image/x-icon">
+        <link href="css/style.css" rel="stylesheet" media="all"
+              type="text/css">
+        <meta charset="UTF-8">
+        <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+        </script>
+        <script src="script/scriptComp.js"></script>
+        <title>Composition des équipes</title>
+    </head>
+    <body onload="loadUI()">
+        <nav>
+            <a href="accueil.html">
+                <div class="navbar-item-logo">
+                    <img src="images/logo.png" alt="">
+                </div>
+            </a>
+            <a href="accueil.html">
+                <div class="navbar-item navbar-item-main">Accueil</div>
+            </a>
+            <a href="composition.html">
+                <div
+                class="navbar-item navbar-item-current">Composition des équipes
+                </div>
+            </a>
+            <a href="classement.html">
+                <div class="navbar-item">Classement des équipes</div>
+            </a>
+            <a href="evolution.html">
+                <div class="navbar-item">Évolution de l'équipe</div>
+            </a>
+            <a href="auteurs.html">
+                <div class="navbar-item">Les auteurs</div>
+            </a>
+        </nav>
+        <main>
+            <br>
+            <h1>Composition des équipes</h1>
+            <br>
+            <fieldset>
+                <label>Année:
+                    <select id="year" onchange="checkControl()"></select>
+                </label>
+                <span>
+                    <label>
+                        <input type="checkbox" id="fielders"
+                        onclick="checkControl()">Joueurs de champ
+                    </label>
+                    <label>
+                        <input type="checkbox" id="pitchers"
+                        onclick="checkControl()">Lanceurs
+                    </label>
+                </span>
+                <span>
+                    <label>
+                        <input type="checkbox" id="manager"
+                        onclick="checkControl()">Gérant
+                    </label>
+                </span>
+                <span>
+                    <label>
+                        <input type="checkbox" id="attendance"
+                        onclick="checkControl()">Assistance
+                    </label>
+                </span>
+                <span>
+                    <label>
+                        <input type="checkbox" id="salary"
+                        onclick="checkControl()">Masse salariale
+                    </label>
+                </span>
+            </fieldset>
+            <br>
+            <fieldset id="detail-data">
+                <span class="detail-comp">
+                    <label id="manager-data">
+                        <b>Gérant: </b><span></span>
+                    </label>
+                    <label id="prop-data">
+                        <b>Proprio: </b><span></span>
+                    </label>
+                </span>
+                <span class="detail-comp">
+                    <label id="attendance-data">
+                        <b>Assistance: </b><span></span>
+                    </label>
+                    <label id="salary-data">
+                        <b>Masse salariale: </b><span></span>
+                    </label>
+                </span>
+            </fieldset>
+            <div id="field-data">
+                <hr>
+                <h2>Joueurs de champ<span id="field"></span></h2>
+                <fieldset class="stats-comp">
+                    <h4>Statistiques</h4>
+                    <aside>
+                        <b>Légende</b><br>
+                        <div id="offense">
+                            <span>BA%:</span> Moyenne au bâton<br>
+                            <span>SL%:</span> Moyenne de puissance<br>
+                            <span>OB%:</span> Moyenne de présence sur les buts
+                            <br>
+                            <span>SO%:</span> Moyenne de puissance et présence
+                            <br>
+                            <span>SB%:</span> Moyenne de buts volés<br>
+                            <span>AB:</span> Présence officielle au bâton<br>
+                            <span>H:</span> Coup sûr<br>
+                            <span>2B:</span> Double<br>
+                            <span>3B:</span> Triple<br>
+                            <span>HR:</span> Coup de circuit<br>
+                            <span>BB:</span> But sur balles<br>
+                            <span>R:</span> Point<br>
+                            <span>SB:</span> But volé<br>
+                            <span>CS:</span> Retrait sur tentative de vol<br>
+                        </div>
+                        <hr>
+                        <div id="defence">
+                            <span>FP%:</span> Moyenne défensive<br>
+                            <span>POS*:</span> Position la plus jouée<br>
+                            <span>A:</span> Assistance<br>
+                            <span>E:</span> Erreur<br>
+                            <span>Salaire:</span> Salaire annuel<br>
+                        </div>
+                    </aside>
+                    <fieldset class="stats">
+                        <legend>Attributs</legend>
+                        <fieldset class="stats-option" id="field-attroff">
+                            <legend>Offensive</legend>
+                            <span>
+                                <label>
+                                    <input type="checkbox" id="fBA-moy">BA%
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="fSL-moy">SL%
+                                </label>
+                            </span>
+                            <span>
+                                <label>
+                                    <input type="checkbox" id="fOB-moy">OB%
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="fSO-moy">SO%
+                                </label>
+                            </span>
+                            <span>
+                                <label>
+                                    <input type="checkbox" id="fSB-moy">SB%
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="fAB">AB
+                                </label>
+                            </span>
+                            <span>
+                                <label>
+                                    <input type="checkbox" id="fH">H
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="f2B">2B
+                                </label>
+                            </span>
+                            <span>
+                                <label>
+                                    <input type="checkbox" id="f3B">3B
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="fHR">HR
+                                </label>
+                            </span>
+                            <span>
+                                <label>
+                                    <input type="checkbox" id="fBB">BB
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="fR">R
+                                </label>
+                            </span>
+                            <span>
+                                <label>
+                                    <input type="checkbox" id="fSB">SB
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="fCS">CS
+                                </label>
+                            </span>
+                        </fieldset>
+                        <fieldset class="stats-option" id="field-attrdef">
+                            <legend>Défensive</legend>
+                            <label>
+                                <input type="checkbox" id="fFP-moy">FP%
+                            </label>
+                            <label>
+                                <input type="checkbox" id="fPOS">POS*
+                            </label>
+                            <label><input type="checkbox" id="fA">A</label>
+                            <label><input type="checkbox" id="fE">E</label>
+                            <label>
+                                <input type="checkbox" id="fsalary">Salaire
+                            </label>
+                        </fieldset>
+                        <fieldset class="stats-option">
+                            <label>
+                                <input type="radio" name="field-select"
+                                onclick="attrSelect(true)"
+                                value="off">Offensive
+                            </label>
+                            <label>
+                                <input type="radio" name="field-select"
+                                onclick="attrSelect(true)"
+                                value="def">Défensive
+                            </label>
+                            <label>
+                                <input type="radio" name="field-select"
+                                onclick="attrSelect(true)" value="all">Tout
+                            </label>
+                            <label>
+                                <input type="radio" name="field-select"
+                                onclick="attrSelect(true)" value="manual"
+                                checked>Au choix
+                            </label>
+                        </fieldset>
+                    </fieldset>
+                    <fieldset class="stats">
+                        <legend>Triage</legend>
+                        <label>
+                            <input type="radio" name="field-sort"
+                            value="b.H/b.AB" checked>BA%
+                        </label>
+                        <label>
+                            <input type="radio" name="field-sort"
+                            value="(b.H-b.2B-b.3B-b.HR+2*b.2B+3*b.3B+4*b.HR)
+                            /b.AB">SL%
+                        </label>
+                        <label>
+                            <input type="radio" name="field-sort"
+                            value="(b.H+b.BB+b.HBP)/(b.AB+b.BB+b.HBP+b.SF)">OB%
+                        </label>
+                        <label>
+                            <input type="radio" name="field-sort"
+                            value="SUM(f.A)/(SUM(f.A) + SUM(f.E))">FP%
+                        </label>
+                        <label>
+                            <input type="radio" name="field-sort"
+                            value="b.HR">HR
+                        </label>
+                        <label>
+                            <input type="radio" name="field-sort"
+                            value="salary">Salaire
+                        </label>
+                    </fieldset>
+                    <button class="stats"
+                    onclick="init(true)">Lancer la requête</button>
+                </fieldset>
+                <table id="field-table"></table>
+            </div>
+            <div id="pitch-data">
+                <hr>
+                <h2>Lanceurs <span id="pitch"></span></h2>
+                <fieldset class="stats-comp">
+                    <h4>Statistiques</h4>
+                    <aside>
+                        <b>Légende</b><br>
+                        <span>ERA:</span> Moyenne de points mérités<br>
+                        <span>BAOpp:</span> Moyenne au bâton de l'adversaire
+                        <br>
+                        <span>partant:</span> Lanceur partant (en orange)<br>
+                        <span>G:</span> Parties<br>
+                        <span>GS:</span> Parties commencées<br>
+                        <span>CG:</span> Parties complétées<br>
+                        <span>W:</span> Victoires<br>
+                        <span>L:</span> Pertes<br>
+                        <span>SV:</span> Sauvetage<br>
+                        <span>IPouts:</span> Retraits lancés<br>
+                        <span>SO:</span> Retrait au bâton<br>
+                        <span>H:</span> Coup sûr<br>
+                        <span>BB:</span> But sur balles<br>
+                        <span>Salaire:</span> Salaire annuel<br>
+                    </aside>
+                    <fieldset class="stats">
+                        <legend>Attributs</legend>
+                        <fieldset class="stats-option" id="pitch-attr">
+                            <span>
+                                <label>
+                                    <input type="checkbox" id="pERA">ERA
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="pBAOpp">BAOpp
+                                </label>
+                            </span>
+                            <span>
+                                <label>
+                                    <input type="checkbox"
+                                    id="ppartant">partant
+                                </label>
+                                <label><input type="checkbox" id="pG">G</label>
+                            </span>
+                            <span>
+                                <label>
+                                    <input type="checkbox" id="pGS">GS
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="pCG">CG
+                                </label>
+                            </span>
+                            <span>
+                                <label><input type="checkbox" id="pW">W</label>
+                                <label><input type="checkbox" id="pL">L</label>
+                            </span>
+                            <span>
+                                <label>
+                                    <input type="checkbox" id="pSV">SV
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="pIPouts">IPouts
+                                </label>
+                            </span>
+                            <span>
+                                <label>
+                                    <input type="checkbox" id="pSO">SO
+                                </label>
+                                <label><input type="checkbox" id="pH">H</label>
+                            </span>
+                            <span>
+                                <label>
+                                    <input type="checkbox" id="pBB">BB
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="psalary">Salaire
+                                </label>
+                            </span>
+                        </fieldset>
+                        <fieldset class="stats-option">
+                            <label>
+                                <input type="radio" name="pitch-select"
+                                onclick="attrSelect(false)" value="all">Tout
+                            </label>
+                            <label>
+                                <input type="radio" name="pitch-select"
+                                onclick="attrSelect(false)"
+                                value="manual" checked>Au choix
+                            </label>
+                        </fieldset>
+                    </fieldset>
+                    <fieldset class="stats">
+                        <legend>Triage</legend>
+                        <label>
+                            <input type="radio" name="pitch-sort" value="ERA"
+                            checked>ERA
+                        </label>
+                        <label>
+                            <input type="radio" name="pitch-sort"
+                            value="BAOpp">BAOpp
+                        </label>
+                        <label>
+                            <input type="radio" name="pitch-sort" value="G">G
+                        </label>
+                        <label>
+                            <input type="radio" name="pitch-sort" value="GS">GS
+                        </label>
+                        <label>
+                            <input type="radio" name="pitch-sort" value="CG">CG
+                        </label>
+                        <label>
+                            <input type="radio" name="pitch-sort" value="W">W
+                        </label>
+                        <label>
+                            <input type="radio" name="pitch-sort" value="SO">SO
+                        </label>
+                        <label>
+                            <input type="radio" name="pitch-sort" value="H">H
+                        </label>
+                        <label>
+                            <input type="radio" name="pitch-sort" value="BB">BB
+                        </label>
+                        <label>
+                            <input type="radio" name="pitch-sort"
+                            value="salary">Salaire
+                        </label>
+                    </fieldset>
+                    <button class="stats" onclick="init(false)">Lancer
+                        la requête
+                    </button>
+                </fieldset>
+                <table id="pitch-table"></table>
+            </div>
+        </main>
+    </body>
+</html>

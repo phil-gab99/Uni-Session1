@@ -1,0 +1,93 @@
+<!-- Vincent Falardeau, Philippe Gabriel -->
+
+<!DOCTYPE html>
+
+<html lang="fr-ca">
+    <head>
+        <link rel="icon" href="images/icon.ico" type="image/x-icon">
+        <link href="css/style.css" rel="stylesheet" media="all"
+              type="text/css">
+        <meta charset="UTF-8">
+        <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+        </script>
+        <script src="script/scriptClass.js"></script>
+        <title>Classement des équipes</title>
+    </head>
+    <body onload="loadUI()">
+        <nav>
+            <a href="accueil.html">
+                <div class="navbar-item-logo">
+                    <img src="images/logo.png" alt="">
+                </div>
+            </a>
+            <a href="accueil.html">
+                <div class="navbar-item navbar-item-main">Accueil</div>
+            </a>
+            <a href="composition.html">
+                <div class="navbar-item">Composition des équipes </div>
+            </a>
+            <a href="classement.html">
+                <div
+                class="navbar-item navbar-item-current">Classement des équipes
+                </div>
+            </a>
+            <a href="evolution.html">
+                <div class="navbar-item">Évolution de l'équipe</div>
+            </a>
+            <a href="auteurs.html">
+                <div class="navbar-item">Les auteurs</div>
+            </a>
+        </nav>
+        <main>
+            <br>
+            <h1>Classement des équipes</h1>
+            <br>
+            <fieldset>
+                <label>Année:
+                    <select id="year"></select>
+                </label>
+                <span>
+                    <label>
+                        <input type="checkbox" checked disabled id="nl-check">
+                        Ligue nationale
+                    </label>
+                    <label>
+                        <input type="checkbox" id="nl-champ">Champion*
+                    </label>
+                </span>
+                <span>
+                    <label>
+                        <input type="checkbox" id="al-check"
+                        onchange="checkControl()">Ligue américaine
+                    </label>
+                    <label>
+                        <input type="checkbox" id="al-champ" disabled>Champion*
+                    </label>
+                </span>
+                <span>
+                    <label>
+                        <input type="checkbox"
+                        id="world-champ">Champion Mondial**
+                    </label>
+                </span>
+                <button onclick="init()">Lancer la requête</button>
+            </fieldset>
+            <i>
+                <span class="champlg">Champion</span>: correspond à l'équipe
+                championne de sa ligue pour la saison
+            </i>
+            *
+            <br>
+            <i>
+                <span class="champws">Champion mondial</span>: correspond à
+                l'équipe championne de la série mondiale, de toutes les ligues
+            </i>
+            **
+            <br>
+            <span id="year1994"></span>
+            <div id="nl-data"></div>
+            <div id="al-data"></div>
+        </main>
+    </body>
+</html>
